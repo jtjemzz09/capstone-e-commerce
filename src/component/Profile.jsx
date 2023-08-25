@@ -3,7 +3,7 @@
 function Profile() {
     return (
         <div>
-            Content
+            Profile
         </div>
     );
 }

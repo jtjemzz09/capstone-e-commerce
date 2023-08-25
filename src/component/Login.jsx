@@ -3,7 +3,7 @@
 function Login() {
     return (
         <div>
-            Content
+            Login
         </div>
     );
 }

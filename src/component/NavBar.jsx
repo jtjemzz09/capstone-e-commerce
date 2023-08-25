@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../img/logo.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {  faUser, faHouse, faRightToBracket } from '@fortawesome/free-solid-svg-icons'
+import {  faUser, faHouse, faRightToBracket, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 function NavBar() {
     return (
@@ -18,6 +18,10 @@ function NavBar() {
           <Link to ="Login " className="nav-link">
            <FontAwesomeIcon icon={faRightToBracket} style={{color: "#519fb3",}} />
           </Link>
+          <Link to ="Cart " className="nav-link">
+           <FontAwesomeIcon icon={faCartShopping} style={{color: "519fb3",}} />
+          </Link>
+
             </nav>
         </div>
     );

@@ -19,7 +19,7 @@ export const getAllProducts = async () => {
     try {
         const response = await fetch(`${BASE_URL}/products`);
         const data = await response.json();
-        console.log("get products data:", data);
+        // console.log("get products data:", data);
         
         return data; 
     } catch (error) {
@@ -78,9 +78,9 @@ export const registerUser = async (registrationData) => {
 
 
 
-export const getAllCategories = async () => {
+export const getAllCategories = async (category) => {
   try {
-    const response = await fetch(`${BASE_URL}/products/categories`);
+    const response = await fetch(`${BASE_URL}/products/category/${category}`);
     const categories = await response.json();
     return categories;
   } catch (error) {

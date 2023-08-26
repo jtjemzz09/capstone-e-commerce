@@ -70,6 +70,8 @@ function Login() {
   return (
     <div className="login-container">
       <h2>{isLoggedIn ? 'Logged In' : 'Login'}</h2>
+      <p> Get access to your orders</p>
+
       {isLoggedIn ? (
         <div>
           <p>You are logged in!</p>
@@ -106,10 +108,11 @@ function Login() {
                 />
               </div>
               <button type="submit" className="login-button">Login</button>
+              <p> By continuing, you agree to butik's Terms of Use and Privacy Policy</p>
             </form>
           )}
           {!isLoggedIn && !registrationSuccess && (
-            <p className="register-link">Don't have an account? <Link to="/register">Register</Link></p>
+            <p className="register-link">New to Butik? Create an account <Link to="/register">Register</Link></p>
           )}
         </div>
       )}

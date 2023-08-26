@@ -5,6 +5,7 @@ import NavBar from "./component/NavBar"
 import Profile from "./component/Profile"
 import Shop from "./component/Shop"
 import Cart from "./component/Cart"
+import Register from "./component/Register"
 
 
 function App() {
@@ -20,6 +21,8 @@ function App() {
         <Route path="/Profile" element={ <Profile />} />
         <Route path="/Login" element={  <Login />} />
         <Route path="/Cart" element={  <Cart />} />
+         <Route path="/Register" element={  <Register />} />
+        
 
       </Routes>
       </div>

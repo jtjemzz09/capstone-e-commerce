@@ -6,6 +6,7 @@ import Profile from "./component/Profile"
 import Shop from "./component/Shop"
 import Cart from "./component/Cart"
 import Register from "./component/Register"
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 function App() {

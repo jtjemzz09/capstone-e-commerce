@@ -90,3 +90,14 @@
 .register-link {
   margin-top: 10px;
 }
+
+
+
+/*post*/
+.card-img-top{
+
+  width: 300px;
+  height: 300px;
+  object-fit: contain;
+}
+

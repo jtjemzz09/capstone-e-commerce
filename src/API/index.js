@@ -28,6 +28,23 @@ export const getAllProducts = async () => {
     }
 };
 
+export const fetchSingleProduct = async (productId) => {
+   try {
+    const response = await fetch(`${BASE_URL}/products/${productId}`);
+    if (!response.ok) {
+        throw new Error(`API request failed with status: ${response.status}`);
+    }
+    const data = await response.json();
+    console.log("get single product data:", data);
+    return data;
+} catch (error) {
+    console.error("Error fetching single product:", error);
+    throw error;
+}
+};
+
+
+
 export const loginUser = async (loginData) => {
     console.log('loginUser function called');
     try {

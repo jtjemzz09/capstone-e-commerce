@@ -101,3 +101,53 @@
   object-fit: contain;
 }
 
+/*single product*/
+
+.product-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #ccc;
+    width: 100vw; /* Use the full viewport width */
+    height: 100vh; /* Use the full viewport height */
+    overflow: hidden; /* Hide horizontal scrollbars if any */
+}
+
+.product-image img {
+    max-width: 50%; /* Make the image occupy 50% of the container width */
+    height: auto;
+    border: none;
+      /* Remove the border around the image */
+}
+
+.product-info {
+    padding-left: 20px;
+    width: 50%; /* Make the info section occupy 50% of the container width */
+    box-sizing: border-box; /* Include padding in the width calculation */
+    height: 100%; /* Match the height of the container */
+    overflow: auto; /* Add vertical scroll if content overflows */
+}
+
+.product-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-rating {
+    color: #888;
+}
+
+.product-rating p {
+    margin: 5px 0;
+}

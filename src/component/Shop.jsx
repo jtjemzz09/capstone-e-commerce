@@ -3,6 +3,7 @@ import { getAllProducts, getAllCategories, fetchSingleProduct } from "../API/ind
 import "bootstrap/dist/css/bootstrap.min.css";
 import SingleProduct from "./SingleProduct";
 
+
 function Shop() {
     const [products, setProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -61,6 +62,11 @@ function Shop() {
         }
     };
 
+    // Reset selected product and its position when changing categories
+    useEffect(() => {
+        setSelectedProduct(null);
+    }, [selectedCategory]);
+
     function postMatches(product, text) {
         const fieldsToCheck = ['title', 'description', 'price',];
         return fieldsToCheck.some(field =>
@@ -102,7 +108,11 @@ function Shop() {
 
 <div className="col-md-4">
                     {/* Use the SingleProduct component to display selected product */}
-                     <SingleProduct productId={selectedProduct?.id} position={selectedProductPosition} />
+                      {selectedProduct && (
+                
+                    <SingleProduct productId={selectedProduct?.id} position={selectedProductPosition} />
+               
+            )}
                 </div>
              {/* Product list */}
             <div className="row">
@@ -113,7 +123,7 @@ function Shop() {
                         <div className="card">
                             <img src={product.image} alt={product.title} className="card-img-top mx-auto" />
                             <div className="card-body text-center">
-                                <h5 className="card-title"  onClick={(event) => handleProductClick(product.id, event)}>{product.title}</h5>
+                                <h5 className="card-title link-style"  onClick={(event) => handleProductClick(product.id, event)}>{product.title}</h5>
                                 <p className="card-text">${product.price}</p>
                                 <div className="rating">
                                     {product.rating && (
@@ -123,7 +133,7 @@ function Shop() {
                                         </>
                                     )}
                                 </div>
-                                <button className="btn btn-primary">Add to Cart</button>
+                                
                             </div>
                         </div>
                     </div>

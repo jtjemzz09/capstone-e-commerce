@@ -10,7 +10,7 @@ function Login() {
   const [error, setError] = useState(null);
   const [showRegistrationForm, setShowRegistrationForm] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!sessionStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const navigate = useNavigate();
   
 
@@ -23,7 +23,7 @@ function Login() {
   };
 
   const handleLoginSuccess = (token,) => {
-    sessionStorage.setItem('token', token);
+    localStorage.setItem('token', token);
      sessionStorage.setItem('username', username);
      
 
@@ -62,7 +62,7 @@ function Login() {
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     sessionStorage.removeItem('username');
     setIsLoggedIn(false);
   };

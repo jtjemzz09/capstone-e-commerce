@@ -93,7 +93,7 @@
 
 
 
-/*post*/
+/*products*/
 .card-img-top{
 
   width: 300px;
@@ -151,3 +151,18 @@
 .product-rating p {
     margin: 5px 0;
 }
+
+/*shop*/
+.link-style {
+  cursor: pointer;
+  text-decoration: underline;
+  color: rgb(67, 114, 121);
+  font-size:medium;
+}
+  
+
+.link-style:hover {
+    text-decoration: underline;
+    color: rgb(28, 29, 29);
+     
+    }

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { fetchSingleProduct } from "../API/index";
 
 
-function SingleProduct({ productId }) {
+function SingleProduct({ productId, }) {
     const [product, setProduct] = useState(null);
 
     useEffect(() => {
@@ -40,6 +40,7 @@ function SingleProduct({ productId }) {
                             <div>
                                 <p>Rating: {product.rating.rate}</p>
                                 <p>({product.rating.count} reviews)</p>
+                                <button className="btn btn-primary">Add to Cart</button>
                             </div>
                         )}
                     </div>

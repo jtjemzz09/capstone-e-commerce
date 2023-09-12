@@ -6,7 +6,7 @@ export const makeHeaders = (includeToken = true) => {
   };
 
   if (includeToken) {
-    const token = sessionStorage.getItem('token');
+    const token = localStorage.getItem('token');
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
@@ -45,6 +45,8 @@ export const fetchSingleProduct = async (productId) => {
 
 
 
+
+
 export const loginUser = async (loginData) => {
     console.log('loginUser function called');
     try {
@@ -70,6 +72,9 @@ export const loginUser = async (loginData) => {
         throw err; // Rethrow the error to handle it in the calling code
     }
 };
+
+
+
 
 export const registerUser = async (registrationData) => {
   try {
@@ -103,5 +108,153 @@ export const getAllCategories = async (category) => {
   } catch (error) {
     console.error('Error fetching categories:', error);
     throw error;
+  }
+};
+
+
+//cart
+
+// Function to add items to the cart
+export const addToCart = async (userId, date, products) => {
+  try {
+    const response = await fetch(`${BASE_URL}/carts`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        date,
+        products,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to add items to the cart');
+    }
+
+    const cartData = await response.json();
+    return cartData;
+  } catch (error) {
+    console.error('Error adding items to the cart:', error);
+    throw error;
+  }
+};
+
+
+// Function to fetch a user's cart
+export const getUserCart = async (userId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/carts/user/${userId}`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch user cart. Status: ${response.status}`);
+    }
+    const cartData = await response.json();
+    return cartData;
+  } catch (error) {
+    console.error('Error fetching user cart:', error);
+    throw error; // You can handle the error as needed in your application
+  }
+};
+
+
+// Function to update the cart
+// export const updateCart = async (cartId, userId, date, products) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/${cartId}`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({
+//         userId,
+//         date,
+//         products,
+//       }),
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Failed to update the cart');
+//     }
+
+//     const updatedCartData = await response.json();
+//     return updatedCartData;
+//   } catch (error) {
+//     console.error('Error updating the cart:', error);
+//     throw error;
+//   }
+// };
+
+
+// Function to delete a cart by cartId
+// export const deleteCart = async (cartId) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/${cartId}`, {
+//       method: 'DELETE',
+//     });
+
+//     if (!response.ok) {
+//       throw new Error('Failed to delete the cart');
+//     }
+
+//     const deletedCartData = await response.json();
+//     return deletedCartData;
+//   } catch (error) {
+//     console.error('Error deleting the cart:', error);
+//     throw error;
+//   }
+// };
+
+
+
+
+// Function to clear a user's cart
+// export const clearUserCart = async (userId) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/carts/user/${userId}`, {
+//       method: 'DELETE',
+//     });
+//     if (!response.ok) {
+//       throw new Error(`Failed to clear user cart. Status: ${response.status}`);
+//     }
+//     const clearedCartData = await response.json();
+//     return clearedCartData;
+//   } catch (error) {
+//     console.error('Error clearing user cart:', error);
+//     throw error; // You can handle the error as needed in your application
+//   }
+// };
+
+
+// export const fetchProductPriceById = async (productId) => {
+//   try {
+//     const response = await fetch(`${BASE_URL}/${productId}`);
+    
+//     if (!response.ok) {
+//       throw new Error('Failed to fetch product price');
+//     }
+
+//     const productData = await response.json();
+//     return productData.price; // Assuming the API response contains the price
+//   } catch (error) {
+//     console.error('Error fetching product price:', error);
+//     return 0; // Default to 0 if there's an error
+//   }
+// };
+
+export const getUserInfo = async (userId) => {
+  try {
+    console.log('Fetching user info from URL:', `${BASE_URL}/users/${userId}`);
+    const response = await fetch(`${BASE_URL}/users/${userId}`);
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch user information');
+    }
+
+    const userData = await response.json();
+    return userData; // Assuming the API response contains user information
+  } catch (error) {
+    console.error('Error fetching user information:', error);
+    return null; // Default to null if there's an error
   }
 };

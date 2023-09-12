@@ -2,9 +2,13 @@ import { useState, useEffect } from "react";
 import { getAllProducts, getAllCategories, fetchSingleProduct } from "../API/index"; // Import your API functions
 import "bootstrap/dist/css/bootstrap.min.css";
 import SingleProduct from "./SingleProduct";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 
-function Shop() {
+
+function Products() {
     const [products, setProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [sortOrder, setSortOrder] = useState("asc");
@@ -12,6 +16,7 @@ function Shop() {
     const [searchTerm, setSearchTerm] = useState("");
      const [selectedProduct, setSelectedProduct] = useState(null);
     const [selectedProductPosition, setSelectedProductPosition] = useState({ top: 0, left: 0 });
+    
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -48,6 +53,8 @@ function Shop() {
         fetchProducts(); // Call the fetchProducts function inside the useEffect
     }, [selectedCategory, sortOrder, sortBy]);
 
+    
+
  // Function to handle click on product title
     const handleProductClick = async (productId, event) => {
         try {
@@ -78,16 +85,22 @@ function Shop() {
 
     return (
         <div >
+            <div className="container my-5 py-5">
+                <div className="row">
+            <div className="col-12 mb-5">
+                <h1 className="display-6 fw-bolder text-center"> Latest products </h1>
+                <hr/>
+            </div>
               {/* Category selection */}
-            <div>
-                <button onClick={() => setSelectedCategory(null)}>All</button>
-                <button onClick={() => setSelectedCategory("electronics")}>Electronics</button>
-                <button onClick={() => setSelectedCategory("jewelery")}>Jewelry</button>
-                <button onClick={() => setSelectedCategory("men's clothing")}>Men's Clothing</button>
-                <button onClick={() => setSelectedCategory("women's clothing")}>Women's Clothing</button>
+            <div className="buttons d-flex justify-content-center mb-5 pb-5">
+                <button  className=" btn btn-outline-dark me-2"onClick={() => setSelectedCategory(null)}>All</button>
+                <button className=" btn btn-outline-dark me-2" onClick={() => setSelectedCategory("electronics")}>Electronics</button>
+                <button className=" btn btn-outline-dark me-2" onClick={() => setSelectedCategory("jewelery")}>Jewelry</button>
+                <button className=" btn btn-outline-dark me-2" onClick={() => setSelectedCategory("men's clothing")}>Men's Clothing</button>
+                <button className=" btn btn-outline-dark me-2" onClick={() => setSelectedCategory("women's clothing")}>Women's Clothing</button>
             </div>
             <div >
-          
+
             <div>
                 {/* Sort dropdown menu */}
                 <label htmlFor="sortBy">Sort by:</label>
@@ -120,18 +133,27 @@ function Shop() {
                  {filteredProducts.map(product => (
                     
                     <div key={product.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
-                        <div className="card">
+                        <div className="card h-100 text-center p-4 " key={product.id}>
                             <img src={product.image} alt={product.title} className="card-img-top mx-auto" />
                             <div className="card-body text-center">
-                                <h5 className="card-title link-style"  onClick={(event) => handleProductClick(product.id, event)}>{product.title}</h5>
-                                <p className="card-text">${product.price}</p>
+                               <h5 className="card-title link-style"  onClick={(event) => handleProductClick(product.id, event)}>{product.title}</h5>
+
+                               {/* <h5 className="card-title link-style">
+  <Link to={`/products/${product.id}`} onClick={(event) => handleProductClick(product.id, event)}>
+    {product.title}
+  </Link>
+</h5> */}
+                                <p className="card-text lead fw-bold">${product.price}</p>
                                 <div className="rating">
-                                    {product.rating && (
-                                        <>
-                                            <p>Rating: {product.rating.rate}</p>
-                                            <p>({product.rating.count} reviews)</p>
-                                        </>
-                                    )}
+                                     {product.rating && (
+                            <div className="lead" >
+                                <p className="lead fw-bolder">Rating: {product.rating.rate}
+                                <FontAwesomeIcon icon={faStar} style={{ color: "#161717" }} />
+                                </p>
+                                <p>({product.rating.count} reviews)</p>
+                                
+                            </div>
+                        )}
                                 </div>
                                 
                             </div>
@@ -142,10 +164,12 @@ function Shop() {
             
         </div>
         </div>
+        </div>
+        </div>
     );
 }
 
-export default Shop;
+export default Products;
 
 
 

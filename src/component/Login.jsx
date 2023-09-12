@@ -22,18 +22,15 @@ function Login() {
     setPassword(event.target.value);
   };
 
-  const handleLoginSuccess = (token,) => {
+  const handleLoginSuccess = (token,userId) => {
+    console.log("userId" ,userId)
     localStorage.setItem('token', token);
-     sessionStorage.setItem('username', username);
-     
-
-     
-  
+     localStorage.setItem('username', username);
+      localStorage.setItem('userId', userId);
     setIsLoggedIn(true);
     navigate('/');
     window.location.reload();
   };
-
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -45,16 +42,16 @@ function Login() {
 
     try {
         const result = await loginUser(loginData);
+         const userId= 1
         console.log('Received token:', result.token);
-        handleLoginSuccess(result.token);
+        
+        handleLoginSuccess(result.token, userId);
         window.alert("Login successful!");
     } catch (err) {
         setError("Invalid credentials. Please try again.");
     }
 };
 
-
-  
 
   const handleRegistrationSuccess = () => {
     setRegistrationSuccess(true); 

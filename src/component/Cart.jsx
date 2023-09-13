@@ -1,6 +1,8 @@
+
 import {loginUser,
   getUserCart,
-  getUserInfo, } from "../API";
+  getUserInfo,
+fetchProductPriceById } from "../API";
 import React, { useEffect, useState } from 'react';
 
 function Cart() {
@@ -36,7 +38,7 @@ function Cart() {
 
       if (isAuthenticated) {
         // Get the user's info
-        const userId = 1; 
+        const userId = 4; 
         const userData = await getUserInfo(userId);
 
         if (userData) {
@@ -53,6 +55,7 @@ function Cart() {
     fetchData();
   }, []);
 
+  
 
   function renderUserCart() {
     return (

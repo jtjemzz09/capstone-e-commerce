@@ -114,7 +114,7 @@ export const getAllCategories = async (category) => {
 
 //cart
 
-// Function to add items to the cart
+//Function to add items to the cart
 export const addToCart = async (userId, date, products) => {
   try {
     const response = await fetch(`${BASE_URL}/carts`, {
@@ -150,7 +150,7 @@ export const getUserCart = async (userId) => {
       throw new Error(`Failed to fetch user cart. Status: ${response.status}`);
     }
     const cartData = await response.json();
-    return cartData;
+    return cartData;c
   } catch (error) {
     console.error('Error fetching user cart:', error);
     throw error; // You can handle the error as needed in your application
@@ -158,89 +158,89 @@ export const getUserCart = async (userId) => {
 };
 
 
-// Function to update the cart
-// export const updateCart = async (cartId, userId, date, products) => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/${cartId}`, {
-//       method: 'PUT',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({
-//         userId,
-//         date,
-//         products,
-//       }),
-//     });
+//Function to update the cart
+export const updateCart = async (cartId, userId, date, products) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${cartId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        date,
+        products,
+      }),
+    });
 
-//     if (!response.ok) {
-//       throw new Error('Failed to update the cart');
-//     }
+    if (!response.ok) {
+      throw new Error('Failed to update the cart');
+    }
 
-//     const updatedCartData = await response.json();
-//     return updatedCartData;
-//   } catch (error) {
-//     console.error('Error updating the cart:', error);
-//     throw error;
-//   }
-// };
-
-
-// Function to delete a cart by cartId
-// export const deleteCart = async (cartId) => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/${cartId}`, {
-//       method: 'DELETE',
-//     });
-
-//     if (!response.ok) {
-//       throw new Error('Failed to delete the cart');
-//     }
-
-//     const deletedCartData = await response.json();
-//     return deletedCartData;
-//   } catch (error) {
-//     console.error('Error deleting the cart:', error);
-//     throw error;
-//   }
-// };
+    const updatedCartData = await response.json();
+    return updatedCartData;
+  } catch (error) {
+    console.error('Error updating the cart:', error);
+    throw error;
+  }
+};
 
 
+//Function to delete a cart by cartId
+export const deleteCart = async (cartId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${cartId}`, {
+      method: 'DELETE',
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to delete the cart');
+    }
+
+    const deletedCartData = await response.json();
+    return deletedCartData;
+  } catch (error) {
+    console.error('Error deleting the cart:', error);
+    throw error;
+  }
+};
 
 
-// Function to clear a user's cart
-// export const clearUserCart = async (userId) => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/carts/user/${userId}`, {
-//       method: 'DELETE',
-//     });
-//     if (!response.ok) {
-//       throw new Error(`Failed to clear user cart. Status: ${response.status}`);
-//     }
-//     const clearedCartData = await response.json();
-//     return clearedCartData;
-//   } catch (error) {
-//     console.error('Error clearing user cart:', error);
-//     throw error; // You can handle the error as needed in your application
-//   }
-// };
 
 
-// export const fetchProductPriceById = async (productId) => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/${productId}`);
+//Function to clear a user's cart
+export const clearUserCart = async (userId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/carts/user/${userId}`, {
+      method: 'DELETE',
+    });
+    if (!response.ok) {
+      throw new Error(`Failed to clear user cart. Status: ${response.status}`);
+    }
+    const clearedCartData = await response.json();
+    return clearedCartData;
+  } catch (error) {
+    console.error('Error clearing user cart:', error);
+    throw error; // You can handle the error as needed in your application
+  }
+};
+
+
+export const fetchProductPriceById = async (productId) => {
+  try {
+    const response = await fetch(`${BASE_URL}/products/${productId}`);
     
-//     if (!response.ok) {
-//       throw new Error('Failed to fetch product price');
-//     }
+    if (!response.ok) {
+      throw new Error('Failed to fetch product price');
+    }
 
-//     const productData = await response.json();
-//     return productData.price; // Assuming the API response contains the price
-//   } catch (error) {
-//     console.error('Error fetching product price:', error);
-//     return 0; // Default to 0 if there's an error
-//   }
-// };
+    const productData = await response.json();
+    return productData.price; // Assuming the API response contains the price
+  } catch (error) {
+    console.error('Error fetching product price:', error);
+    return 0; // Default to 0 if there's an error
+  }
+};
 
 export const getUserInfo = async (userId) => {
   try {
@@ -258,3 +258,6 @@ export const getUserInfo = async (userId) => {
     return null; // Default to null if there's an error
   }
 };
+
+
+

@@ -8,6 +8,7 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 
 
+
 function Products() {
     const [products, setProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState(null);

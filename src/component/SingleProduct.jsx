@@ -36,7 +36,7 @@ function SingleProduct({ productId, }) {
       try {
         
         const cartData = await addToCart({
-          userId: 1, 
+          userId: 4, 
           date: "2020-02-03",
           products: [{ productId, quantity: 1 }],
         });

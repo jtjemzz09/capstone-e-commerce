@@ -30,8 +30,27 @@
 }
 
 .nav-link:hover {
-  color: #ff9900;
-  border-color: #ff9900;
+  color: #5581ad;
+  border-color: #4184b8;
+}
+
+.navbar a.nav-link {
+  font-style: normal;
+  /* Make links non-italic */
+  color: #000;
+  /* Set the default text color */
+  transition: color 0.3s;
+  /* Add a transition for the color change */
+}
+
+.navbar a.nav-link:hover {
+  color: #87ceeb;
+  /* Change the color to sky blue on hover */
+}
+
+.navbar .nav-icon {
+  margin-right: 0.5rem;
+  /* Add some spacing between the icon and text */
 }
 
 /*Home*/

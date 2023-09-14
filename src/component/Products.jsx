@@ -142,7 +142,7 @@ function Products() {
                     
                     <div key={product.id} className="col-lg-3 col-md-4 col-sm-6 mb-4">
                         <div className="card h-100 text-center p-4 " key={product.id}>
-                            <img src={product.image} alt={product.title} className="card-img-top mx-auto" />
+                            <img src={product.image} alt={product.title} className="card-img-top mx-auto product-image" />
                             <div className="card-body text-center">
                                {/* <Link to={`/products/${product.id}`}>{product.title}</Link> */}
 

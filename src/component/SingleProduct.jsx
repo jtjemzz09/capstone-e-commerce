@@ -53,7 +53,7 @@ function SingleProduct() {
             <div className="product-container">
                 <div className=" col-md-4">
                     <img src={product.image} alt={product.title}
-                    height="400" width="400" />
+                    height="400" width="400" className="product-image" />
                 </div>
                 <div className="col-md-6">
                     <h4 className="text-uppercase text-black-50"> {product.category}</h4>

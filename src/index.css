@@ -120,6 +120,16 @@
   object-fit: contain;
 }
 
+.product-image {
+  transition: transform 0.2s;
+  /* Add a smooth transition effect */
+}
+
+.product-image:hover {
+  transform: scale(1.1);
+  /* Increase the image size on hover */
+}
+
 /*single product*/
 
 .product-container {

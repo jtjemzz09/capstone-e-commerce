@@ -1,14 +1,15 @@
-
 import { useState, useEffect } from "react";
 import { fetchSingleProduct, addToCart } from "../API/index";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 
 
-function SingleProduct({ productId, }) {
+function SingleProduct() {
     const [product, setProduct] = useState(null);
+     const { productId } = useParams();
     
 
     useEffect(() => {
@@ -79,4 +80,3 @@ function SingleProduct({ productId, }) {
     );
 }
 export default SingleProduct;
-

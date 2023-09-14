@@ -1,5 +1,6 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
+import about from "../img/about.png";
+
 
 function About() {
     return (
@@ -9,12 +10,14 @@ function About() {
                     <div className="col-md-6">
                         <h1 className="text-primary fw-bold mb-4">About Us</h1>
                         <p className="lead mb-4">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo molestiae earum rem doloremque, nihil delectus ullam error consectetur? Dicta, non exercitationem in consectetur totam dolorum at voluptate laudantium aliquam, officiis perspiciatis molestias reiciendis consequuntur ullam perferendis velit blanditiis distinctio assumenda a maxime reprehenderit atque. Nam eius rerum distinctio, a illo earum, optio molestias nostrum maxime quibusdam delectus, adipisci impedit? Nam corporis reiciendis minus quod eaque, laborum veritatis voluptatibus id maiores tempore accusantium recusandae perspiciatis, officia cum ad maxime fuga repellendus a magni consequatur. Unde adipisci hic provident est sint corporis, dolorem esse autem soluta molestiae optio quisquam eligendi obcaecati minima?
+                            Welcome to BUTIK, where fashion, technology, and elegance seamlessly blend together. We take pride in curating an exquisite collection of clothing, accessories, cutting-edge gadgets, and exquisite jewelry, all handpicked for those who appreciate the beauty of style and innovation.
+                            Our journey began with a simple vision – to offer a shopping experience that caters to the diverse tastes and desires of our customers. With a keen eye for trends and an unwavering commitment to quality, we bring you the latest in fashion, technology, and adornments from around the world.
+                           
                         </p>
                         <Link to="/contact" className="btn btn-outline-primary px-3">Contact Us</Link>
                     </div>
                     <div className="col-md-6 d-flex justify-content-center">
-                        <img src="/assets/images/about.png" alt="About Us" height="400px" width="400px" />
+                        <img src={about} alt="About Us" height="400px" width="400px" />
                     </div>
                 </div>
             </div>

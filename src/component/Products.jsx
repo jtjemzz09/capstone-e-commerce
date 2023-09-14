@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllProducts, getAllCategories, fetchSingleProduct } from "../API/index"; // Import your API functions
 import "bootstrap/dist/css/bootstrap.min.css";
 import SingleProduct from "./SingleProduct";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
@@ -16,7 +16,7 @@ function Products() {
     const [sortBy, setSortBy] = useState("price");
     const [searchTerm, setSearchTerm] = useState("");
      const [selectedProduct, setSelectedProduct] = useState(null);
-    const [selectedProductPosition, setSelectedProductPosition] = useState({ top: 0, left: 0 });
+    const navigate = useNavigate();
     
 
     useEffect(() => {
@@ -57,14 +57,12 @@ function Products() {
     
 
  // Function to handle click on product title
-    const handleProductClick = async (productId, event) => {
+    const handleProductClick = async (productId) => {
         try {
             const singleProduct = await fetchSingleProduct(productId);
             setSelectedProduct(singleProduct);
-            setSelectedProductPosition({
-                top: event.clientY,
-                left: event.clientX
-            });
+            // Use the navigate function to redirect to the SingleProduct component
+            navigate(`/products/${productId}`);
         } catch (error) {
             console.error("Error fetching single product:", error);
         }
@@ -102,25 +100,34 @@ function Products() {
             </div>
             <div >
 
-            <div>
-                {/* Sort dropdown menu */}
-                <label htmlFor="sortBy">Sort by:</label>
-                <select id="sortBy" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
-                    <option value="price">Price Low to High</option>
-                    <option value="priceDesc">Price High to Low</option>
-                    <option value="topRated">Top Rated</option>
-                </select>
-            </div>
-                {/* Search bar */}
+ {/* Search bar */}
+                             <div className="d-flex align-items-center justify-content-between">
+                        <div className="input-group mb-3">
                             <input
                                 type="text"
+                                className="form-control"
                                 placeholder="Search"
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="form-control"
                             />
+                           
+                        </div>
+                    </div>
 
-<div className="col-md-4">
+          {/* Sort dropdown menu */}
+  <div className="form-group mb-0">
+    <label htmlFor="sortBy" className="form-label">Sort by:</label>
+    <select id="sortBy" value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="form-select">
+      <option value="price">Price Low to High</option>
+      <option value="priceDesc">Price High to Low</option>
+      <option value="topRated">Top Rated</option>
+    </select>
+  </div>
+
+
+               
+
+                <div className="col-md-4">
                     {/* Use the SingleProduct component to display selected product */}
                       {selectedProduct && (
                 
@@ -137,13 +144,13 @@ function Products() {
                         <div className="card h-100 text-center p-4 " key={product.id}>
                             <img src={product.image} alt={product.title} className="card-img-top mx-auto" />
                             <div className="card-body text-center">
-                               <h5 className="card-title link-style"  onClick={(event) => handleProductClick(product.id, event)}>{product.title}</h5>
+                               {/* <Link to={`/products/${product.id}`}>{product.title}</Link> */}
 
-                               {/* <h5 className="card-title link-style">
-  <Link to={`/products/${product.id}`} onClick={(event) => handleProductClick(product.id, event)}>
-    {product.title}
-  </Link>
-</h5> */}
+                               <h5 className="card-title link-style">
+                                <Link to={`/products/${product.id}`} onClick={(event) => handleProductClick(product.id, event)}>
+                                {product.title}
+                                </Link>
+                                </h5>
                                 <p className="card-text lead fw-bold">${product.price}</p>
                                 <div className="rating">
                                      {product.rating && (

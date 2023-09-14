@@ -112,7 +112,7 @@ export const getAllCategories = async (category) => {
 };
 
 
-//cart
+
 
 //Function to add items to the cart
 export const addToCart = async (userId, date, products) => {
@@ -142,6 +142,30 @@ export const addToCart = async (userId, date, products) => {
 };
 
 
+// export async function fetchProducts() {
+//   const response = await fetch(`${BASE_URL}/products`);
+//   const data = await response.json();
+//   return data;
+// }
+
+// export async function addToCart(userId, productId, quantity) {
+//   const response = await fetch(`${BASE_URL}/carts`, {
+//     method: 'POST',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({ userId, productId, quantity }),
+//   });
+//   const data = await response.json();
+//   return data;
+// }
+
+export async function getCart(userId) {
+  const response = await fetch(`${BASE_URL}/carts/${userId}`);
+  const data = await response.json();
+  return data;
+}
+
 // Function to fetch a user's cart
 export const getUserCart = async (userId) => {
   try {
@@ -150,7 +174,7 @@ export const getUserCart = async (userId) => {
       throw new Error(`Failed to fetch user cart. Status: ${response.status}`);
     }
     const cartData = await response.json();
-    return cartData;c
+    return cartData;
   } catch (error) {
     console.error('Error fetching user cart:', error);
     throw error; // You can handle the error as needed in your application

@@ -1,4 +1,4 @@
-import React from 'react';
+import contact from "../img/contact.png";
 
 function Contact() {
     return (
@@ -12,20 +12,20 @@ function Contact() {
                 </div>
                 <div className="row">
                     <div className="col-md 5 d-flex justify-content-center">
-                        <img src="/assets/images/contact.png" alt="Contact Us" height="300px" width="300px" />
+                        <img src={contact} alt="Contact Us" height="400px" width="450px" />
                     </div>
                     <div className="col-md-6">
                         <form >
                             <div className="mb-3">
                                 <label for="exampleForm" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="exampleForm" placeholder="John Smith"/>
+                                <input type="text" class="form-control" id="exampleForm" placeholder="Carl Dave"/>
 </div>
                             <div className="mb-3">
                                 <label for="exampleFormControlInput1" class="form-label">Email address</label>
                                 <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
 </div>
                                 <div className="mb-3">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Example textarea</label>
+                                    <label for="exampleFormControlTextarea1" class="form-label">Message</label>
                                     <textarea className="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
                                 </div>
                                 <button type="submit"className="btn btn-outline-primary">Send Message</button>

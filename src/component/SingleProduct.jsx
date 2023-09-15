@@ -34,18 +34,16 @@ function SingleProduct() {
 
 // Function to handle adding a product to the cart
     const handleAddToCart = async (productId) => {
-      try {
-        
-        const cartData = await addToCart({
-          userId: 4, 
-          date: "2020-02-03",
-          products: [{ productId, quantity: 1 }],
-        });
-        console.log("Item added to cart:", cartData);
-      } catch (error) {
-        console.error("Error adding item to cart:", error);
-      }
-    };
+  try {
+    const hardcodedCartId = 6;
+    const userId = 4; 
+    const date = '2020-02-03'; 
+    const cartData = await addToCart(userId, hardcodedCartId, date, [{ productId, quantity: 1 }]);
+    console.log("Item added to cart:", cartData);
+  } catch (error) {
+    console.error("Error adding item to cart:", error);
+  }
+};
 
 
     return (

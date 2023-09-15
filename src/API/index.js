@@ -115,7 +115,7 @@ export const getAllCategories = async (category) => {
 
 
 //Function to add items to the cart
-export const addToCart = async (userId, date, products) => {
+export const addToCart = async (userId, cartId, date, products) => {
   try {
     const response = await fetch(`${BASE_URL}/carts`, {
       method: 'POST',
@@ -124,6 +124,7 @@ export const addToCart = async (userId, date, products) => {
       },
       body: JSON.stringify({
         userId,
+        cartId,
         date,
         products,
       }),
@@ -266,8 +267,9 @@ export const fetchProductPriceById = async (productId) => {
   }
 };
 
-export const getUserInfo = async (userId) => {
+export const getUserInfo = async () => {
   try {
+    const userId= 4;
     console.log('Fetching user info from URL:', `${BASE_URL}/users/${userId}`);
     const response = await fetch(`${BASE_URL}/users/${userId}`);
     

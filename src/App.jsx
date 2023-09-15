@@ -9,6 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SingleProduct from './component/SingleProduct';
 import Contact from './component/Contact';
 import About from './component/About';
+import Checkout from './component/CheckOut';
+
 
 
 function App() {
@@ -27,6 +29,7 @@ function App() {
          <Route path="/products/:productId" element={  <SingleProduct/>} />
          <Route path="contact" element={<Contact/>}/>
           <Route path="/about" element={  <About />} />
+          <Route path="/Checkout" element={  <Checkout />} />
         
 
       </Routes>

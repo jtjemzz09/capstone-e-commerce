@@ -26,7 +26,7 @@
   border: 1px solid transparent;
   padding: 8px 12px;
   font-style: italic;
-  /* Make the font italic */
+ 
 }
 
 .nav-link:hover {
@@ -40,17 +40,17 @@
   color: #000;
   /* Set the default text color */
   transition: color 0.3s;
-  /* Add a transition for the color change */
+ 
 }
 
 .navbar a.nav-link:hover {
   color: #87ceeb;
-  /* Change the color to sky blue on hover */
+ 
 }
 
 .navbar .nav-icon {
   margin-right: 0.5rem;
-  /* Add some spacing between the icon and text */
+ 
 }
 
 /*Home*/
@@ -122,12 +122,12 @@
 
 .product-image {
   transition: transform 0.2s;
-  /* Add a smooth transition effect */
+  
 }
 
 .product-image:hover {
   transform: scale(1.1);
-  /* Increase the image size on hover */
+  
 }
 
 /*single product*/
@@ -146,7 +146,7 @@
     max-width: 50%; /* Make the image occupy 50% of the container width */
     height: auto;
     border: none;
-      /* Remove the border around the image */
+     
 }
 
 .product-info {
@@ -195,3 +195,6 @@
     color: rgb(28, 29, 29);
      
     }
+
+
+   

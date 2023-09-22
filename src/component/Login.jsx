@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { loginUser,  } from '../API/index';
 import Register from './Register';
-import { Link, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 
 
 function Login() {
@@ -61,6 +61,7 @@ function Login() {
   const handleLogout = () => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('username');
+    
     setIsLoggedIn(false);
   };
 
@@ -123,9 +124,7 @@ function Login() {
                         Login
                       </button>
                       <p className="mt-3">
-                        By continuing, you agree to Butik's{' '}
-                        <Link to="/terms">Terms of Use</Link> and{' '}
-                        <Link to="/privacy">Privacy Policy</Link>
+                        By continuing, you agree to Butik's Terms of Use Privacy Policy
                       </p>
                     </form>
                   )}

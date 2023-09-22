@@ -1,83 +1,176 @@
 import { useEffect, useState } from 'react';
-import { getUserCart, fetchSingleProduct } from '../API';
+import { fetchSingleProduct } from '../API';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
 
 function Cart() {
   const [cartData, setCartData] = useState(null);
   const [cartProducts, setCartProducts] = useState([]);
-  const userId = 4;
-  const cartId = 6;
+  const [subtotal, setSubtotal] = useState(0);
+  const [itemsRemoved, setItemsRemoved] = useState(0);
+  const [quantityInput, setQuantityInput] = useState({}); 
+  const isLoggedIn = localStorage.getItem('token') !== null;
 
   useEffect(() => {
     const fetchUserCart = async () => {
       try {
-        console.log('Fetching user cart...');
-        const userCart = await getUserCart(userId, cartId);
-        console.log('User cart data:', userCart);
-        setCartData(userCart);
+        if (isLoggedIn) {
+          const storedCartData = JSON.parse(localStorage.getItem('cart'));
 
-        const productIds = userCart[0].products.map((product) => product.productId);
-        const productsData = await Promise.all(productIds.map((productId) => fetchSingleProduct(productId)));
-        console.log('Products data:', productsData);
-        setCartProducts(productsData);
+          if (storedCartData && storedCartData.products) {
+            setCartData(storedCartData);
+
+            // Initialize quantityInput based on cart data
+            const initialQuantityInput = {};
+            storedCartData.products.forEach((product) => {
+              initialQuantityInput[product.productId] = product.quantity;
+            });
+            setQuantityInput(initialQuantityInput);
+
+            const productIds = storedCartData.products.map((product) => product.productId);
+            const productsData = await Promise.all(productIds.map((productId) => fetchSingleProduct(productId)));
+            setCartProducts(productsData);
+          }
+        }
       } catch (error) {
         console.error('Error fetching user cart:', error);
       }
     };
 
     fetchUserCart();
-  }, [userId, cartId]);
+  }, [isLoggedIn, itemsRemoved]);
 
-  if (!cartData) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    if (!cartData || !cartData.products || !cartProducts.length) {
+      setSubtotal(0); // Set subtotal to 0 if cartData or cartProducts are not available
+      return;
+    }
 
-  const calculateTotal = () => {
     const total = cartProducts.reduce((acc, product) => {
-      const cartItem = cartData[0].products.find((item) => item.productId === product.id);
-      return acc + product.price * cartItem.quantity;
+     const cartItem = cartData.products.find((item) => item.productId === String(product.id));
+      const subtotalForProduct = cartItem ? product.price * cartItem.quantity : 0;
+      return acc + subtotalForProduct;
     }, 0);
-    return total.toFixed(2); // Format total with two decimal places
-  };
+
+    setSubtotal(total.toFixed(2));
+  }, [cartData, cartProducts, itemsRemoved]);
+
+const removeItem = (productId) => {
+  console.log('Removing item with productId:', productId);
+
+  // Check if the product to be removed exists in the cart
+  const isProductInCart = cartData.products.some((item) => item.productId === String(productId));
+
+  if (isProductInCart) {
+    // Filter out the product to be removed
+    const updatedProducts = cartData.products.filter((item) => item.productId !== String(productId));
+
+    // Create an updated cart data object
+    const updatedCartData = {
+      ...cartData,
+      products: updatedProducts,
+    };
+
+    // Update the cart data in local storage
+    localStorage.setItem('cart', JSON.stringify(updatedCartData));
+
+    // Update the state to reflect the change
+    setCartData(updatedCartData);
+
+    // Update the itemsRemoved state to trigger a re-render
+    setItemsRemoved(itemsRemoved + 1);
+  } else {
+    console.log('Product not found in cart.');
+  }
+};
+
+  const handleQuantityChange = (productId, newQuantity) => {
+  // Convert productId to string
+  productId = String(productId);
+
+  // Update the local state (quantityInput)
+  const updatedQuantityInput = { ...quantityInput };
+  updatedQuantityInput[productId] = newQuantity;
+  setQuantityInput(updatedQuantityInput);
+
+  // Update the cart data in local storage
+  const updatedCartData = { ...cartData };
+  const updatedProducts = updatedCartData.products.map((item) => {
+    if (item.productId === productId) {
+      item.quantity = newQuantity;
+    }
+    return item;
+  });
+
+  updatedCartData.products = updatedProducts;
+
+  // Update the cart data in local storage
+  localStorage.setItem('cart', JSON.stringify(updatedCartData));
+
+  // Trigger a recalculation of the subtotal
+  recalculateSubtotal(updatedCartData.products);
+};
+
+// Function to recalculate the subtotal
+const recalculateSubtotal = (updatedProducts) => {
+  const total = cartProducts.reduce((acc, product) => {
+    const cartItem = updatedProducts.find((item) => item.productId === String(product.id));
+    const subtotalForProduct = cartItem ? product.price * cartItem.quantity : 0;
+    return acc + subtotalForProduct;
+  }, 0);
+
+  setSubtotal(total.toFixed(2));
+};
 
   return (
     <div className="container my-5">
-  <h1>Your Cart</h1>
-  {cartData && cartData.length > 0 && cartProducts.length > 0 ? (
-    <div className="row cart-row">
-      {cartProducts.map((product) => (
-        <div key={product.id} className="col-md-6 mb-4 cartPic">
-          <div className="card h-100 d-flex flex-column">
-            <img src={product.image} alt={product.title} className="card-img-top mx-auto" />
-            <div className="card-body d-flex flex-column justify-content-between">
-              <div>
-                <h5 className="card-title">{product.title}</h5>
-                <p className="card-text">Price: ${product.price.toFixed(2)}</p>
-              </div>
-              <div>
-                <p className="card-text">Quantity: {cartData[0].products.find((item) => item.productId === product.id).quantity}</p>
-                <button className="btn btn-danger" onClick={() => removeItem(product.id)}>Remove</button>
+      <h1>Your Cart</h1>
+      {isLoggedIn && cartData && cartData.products.length > 0 && cartProducts.length > 0 ? (
+        <div className="row cart-row">
+          {cartProducts.map((product) => (
+            <div key={product.id} className="col-md-6 mb-4 cartPic">
+              <div className="card h-100 d-flex flex-column">
+                <img src={product.image} alt={product.title} className="card-img-top mx-auto" />
+                <div className="card-body d-flex flex-column justify-content-between">
+                  <div>
+                    <h5 className="card-title">{product.title}</h5>
+                    <p className="card-text">Price: ${product.price.toFixed(2)}</p>
+                  </div>
+                  <div>
+                    <p className="card-text">
+                      Quantity: {quantityInput[product.id] || 0}
+                    </p>
+                    <button className="btn btn-danger" onClick={() => removeItem(product.id)}>
+                      Remove
+                    </button>
+                    <input
+                      type="number"
+                      min="1"
+                      value={quantityInput[product.id] || 0}
+                      onChange={(e) => handleQuantityChange(product.id, parseInt(e.target.value))}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
+          ))}
+           <div className="row">
+        <div className="col-md-6 offset-md-6">
+          <div className="text-end">
+            <p>Subtotal: ${subtotal}</p>
+            <Link to="/CheckOut" className="btn btn-primary">
+              Checkout
+            </Link>
           </div>
         </div>
-      ))}
-    </div>
-  ) : (
-    <p>Your cart is empty.</p>
-  )}
-  <div className="row">
-    <div className="col-md-6 offset-md-6">
-      <div className="text-end">
-        <p>Subtotal: ${calculateTotal()}</p>
-        <Link to="/CheckOut" className="btn btn-primary">
-          Checkout
-        </Link>
       </div>
+        </div>
+        
+      ) : (
+        <p>Your cart is empty.</p>
+      )}
+      
     </div>
-  </div>
-</div>
   );
 }
 
@@ -86,89 +179,3 @@ export default Cart;
 
 
 
-// import {loginUser,
-//   getUserCart,
-//   getUserInfo,
-// fetchProductPriceById } from "../API";
-// import React, { useEffect, useState } from 'react';
-
-// function Cart() {
-//  const [userData, setUserData] = useState(null);
-//   const [cartData, setCartData] = useState([]);
-//   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-//   // Function to authenticate the user 
-//   async function authenticateUser() {
-//     try {
-//       // Simulate user login and get the token from local storage
-//       const token = localStorage.getItem('token');
-
-//       if (token) {
-//         // If a token exists, the user is considered authenticated
-//         setIsAuthenticated(true);
-//         return true;
-//       } else {
-//         // Authentication failed
-//         setIsAuthenticated(false);
-//         return false;
-//       }
-//     } catch (error) {
-//       console.error('Authentication error:', error);
-//       throw error;
-//     }
-//   }
-
-//   useEffect(() => {
-//     async function fetchData() {
-//       // Authenticate the user
-//       const isAuthenticated = await authenticateUser();
-
-//       if (isAuthenticated) {
-//         // Get the user's info
-//         const userId = 4; 
-//         const userData = await getUserInfo(userId);
-
-//         if (userData) {
-//           setUserData(userData);
-
-//           // Get the user's cart data
-//           const cartData = await getUserCart(userId);
-//           console.log('cart cart', cartData)
-//           setCartData(cartData);
-//         }
-//       }
-//     }
-
-//     fetchData();
-//   }, []);
-
-  
-
-//   function renderUserCart() {
-//     return (
-//       <div>
-//         <h2>Welcome, {userData.name.firstname} {userData.name.lastname}!</h2>
-//         <h3>Your Cart:</h3>
-//         <ul>
-//           {cartData[0].products.map((item) => (
-//             <li key={item.productId}>{item.productId}</li>
-//           ))}
-//         </ul>
-//       </div>
-//     );
-//   }
-
-//   // If the user is not authenticated, you can add your logic to redirect them to the login page.
-//   if (!isAuthenticated) {
-//     // Redirect logic or display a message to log in
-//     return <div>Please log in to view your cart.</div>;
-//   }
-
-//   return (
-//     <div>
-//       {userData && cartData.length > 0 ? renderUserCart() : <div>Loading...</div>}
-//     </div>
-//   );
-// }
-
-// export default Cart;

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import logo from "../img/logo.jpg";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUser, faHouse, faRightToBracket, faCartShopping } from '@fortawesome/free-solid-svg-icons'
+import {  faRightToBracket, faCartShopping } from '@fortawesome/free-solid-svg-icons'
 
 function NavBar() {
     return (

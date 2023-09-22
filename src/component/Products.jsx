@@ -131,7 +131,7 @@ function Products() {
                     {/* Use the SingleProduct component to display selected product */}
                       {selectedProduct && (
                 
-                    <SingleProduct productId={selectedProduct?.id} position={selectedProductPosition} />
+                    <SingleProduct productId={selectedProduct?.id}  />
                
             )}
                 </div>

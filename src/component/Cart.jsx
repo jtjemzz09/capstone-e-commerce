@@ -14,6 +14,7 @@ function Cart() {
   useEffect(() => {
     const fetchUserCart = async () => {
       try {
+        // Check if the user is logged in
         if (isLoggedIn) {
           const storedCartData = JSON.parse(localStorage.getItem('cart'));
 
@@ -51,7 +52,7 @@ function Cart() {
       const subtotalForProduct = cartItem ? product.price * cartItem.quantity : 0;
       return acc + subtotalForProduct;
     }, 0);
-
+     // Set the calculated total as the subtotal
     setSubtotal(total.toFixed(2));
   }, [cartData, cartProducts, itemsRemoved]);
 

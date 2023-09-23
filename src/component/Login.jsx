@@ -23,7 +23,8 @@ function Login() {
   };
 
   const handleLoginSuccess = (token,userId) => {
-    console.log("userId" ,userId)
+    // Handle successful login
+    
     localStorage.setItem('token', token);
      localStorage.setItem('username', username);
       localStorage.setItem('userId', userId);
@@ -58,6 +59,7 @@ function Login() {
     
   };
 
+  // Handle user logout
   const handleLogout = () => {
     localStorage.removeItem('token');
     sessionStorage.removeItem('username');

@@ -62,6 +62,7 @@ function Checkout() {
       setErrorMessage('Payment failed. Please check your information and try again.');
       setSuccessMessage('');
     }
+     localStorage.removeItem("cart");
   };
 
   // Simulate a payment 

@@ -22,11 +22,10 @@ function Checkout() {
   const [errorMessage, setErrorMessage] = useState('');
 
   const handleInputChange = (e, stateSetter) => {
-    const { name, value } = e.target;
-    stateSetter((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+      const {name, value} = e.target;
+      stateSetter({
+          [name]: value,
+      });
   };
 
   const handleCheckout = async () => {

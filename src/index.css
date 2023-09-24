@@ -36,10 +36,8 @@
 
 .navbar a.nav-link {
   font-style: normal;
-  /* Make links non-italic */
   color: #000;
-  /* Set the default text color */
-  transition: color 0.3s;
+ transition: color 0.3s;
  
 }
 
@@ -137,8 +135,8 @@
     align-items: center;
     padding: 20px;
     border: 1px solid #ccc;
-    width: 100vw; /* Use the full viewport width */
-    height: 100vh; /* Use the full viewport height */
+    width: 100vw; 
+    height: 100vh;
     overflow: hidden; /* Hide horizontal scrollbars if any */
 }
 

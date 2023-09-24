@@ -160,7 +160,7 @@ function Products() {
                                             className="card-img-top mx-auto product-image"
                                         />
                                         <div className="card-body text-center">
-                                            {/* <Link to={`/products/${product.id}`}>{product.title}</Link> */}
+                                          
 
                                             <h5 className="card-title link-style">
                                                 <Link

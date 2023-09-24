@@ -159,7 +159,7 @@ const recalculateSubtotal = (updatedProducts) => {
         <div className="col-md-6 offset-md-6">
           <div className="text-end">
             <p>Subtotal: ${subtotal}</p>
-            <Link to="/CheckOut" className="btn btn-primary">
+            <Link to="/Checkout" className="btn btn-primary">
               Checkout
             </Link>
           </div>
